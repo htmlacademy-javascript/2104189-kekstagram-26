@@ -1,24 +1,25 @@
-let random = function (a, b) {
-  if (a < 0) {
-    console.log("Минимальное значение - 0");
-    a = 0;
+let getRandom = function (a, b) {
+  if (a < 0 || b < a) {
+    console.log("Переданы некорректные значения");
+    return false;
   }
 
-  return Math.random() * (b - a) + a;
+  return Math.round(Math.random() * (b - a) + a);
 
 };
 
-let commentLength = function (string, maxLength) {
+let getCommentLength = function (string, maxLength) {
 
   if (string.length > maxLength) {
     console.log("Максимальная длинна коментария - 140 символов");
-    string = '';
+    return false;
   } else {
     console.log("Ваш комментарий опубликован");
+    return true
   }
 
 }
 
-random(0, 15);
-commentLength('Второе домашнее задание успешно выполнено', 140);
+getRandom(0, 15);
+getCommentLength('Второе домашнее задание успешно выполнено', 140);
 
