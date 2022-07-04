@@ -90,3 +90,4 @@ const getObjectList = () => {
   }
 };
 getObjectList();
+console.log(objectList);
