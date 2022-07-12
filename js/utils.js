@@ -79,6 +79,8 @@ const getObjectList = () => {
     };
     objectList[i] = object;
   }
+
+  return objectList;
 };
 
-export {objectList, getObjectList};
+export { objectList ,getObjectList};
