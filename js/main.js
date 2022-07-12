@@ -1,5 +1,6 @@
-import {objectList, getObjectList} from "./utils.js";
+// Задание "Отрисуй меня полностью 1"
+import './images.js';
 // Задание 4 + модуляция
-// для проверки работоспособности использовалась console.log(objectList);
+// проверка списка объектов console.log(objectList); после вызова метода getObjectList()
+import {objectList, getObjectList} from "./utils.js";
 getObjectList();
-console.log(objectList);
