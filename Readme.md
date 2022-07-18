@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Даниил Кожененко](https://up.htmlacademy.ru/javascript/26/user/2104189).
-* Наставник: Роман Марченко.
+* Студент: [kostya Lysenko](https://up.htmlacademy.ru/javascript/26/user/586823).
+* Наставник: [Роман Марченко](https://htmlacademy.ru/profile/id505487).
 
 ---
 
