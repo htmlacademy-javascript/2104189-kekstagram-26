@@ -47,10 +47,14 @@ const openBigPublication = (evt) => {
   commentBlock.innerHTML = '';
 
 
-  bigPublication.querySelector('.big-picture__img').querySelector('img').src = picture.querySelector('.picture__img').src;
-  bigPublication.querySelector('.likes-count').textContent = picture.querySelector('.picture__likes').textContent;
-  bigPublication.querySelector('.comments-count').textContent = picture.querySelector('.picture__comments').textContent;
-  bigPublication.querySelector('.social__caption').textContent = picture.querySelector('.picture__comments').textContent;
+  const pictImg = picture.querySelector('.picture__img').src;
+  const pictLikes = picture.querySelector('.picture__likes').textContent;
+  const pictComm = picture.querySelector('.picture__comments').textContent;
+
+  bigPublication.querySelector('.big-picture__img').querySelector('img').src = pictImg;
+  bigPublication.querySelector('.likes-count').textContent = pictLikes;
+  bigPublication.querySelector('.comments-count').textContent = pictComm;
+  bigPublication.querySelector('.social__caption').textContent = pictComm;
 
   // Drawing comments
   const id = picture.dataset.id;
