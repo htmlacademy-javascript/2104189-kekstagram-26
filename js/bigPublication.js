@@ -11,7 +11,6 @@ const commentBlock = document.querySelector('.social__comments');
 const commentTemplate = commentBlock.querySelector('.social__comment');
 
 
-// Function for close button
 const onCloseButton = () => {
   bigPublication.classList.add('hidden');
   body.classList.remove('modal-open');
