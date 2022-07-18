@@ -5,7 +5,6 @@ import './images.js';
 import {objectList, getObjectList} from "./data.js";
 // Задание "Отрисуй меня полностью 2"
 import './bigImages.js';
-import './form.js';
 
 getObjectList();
 
