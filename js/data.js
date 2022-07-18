@@ -1,75 +1,72 @@
+import {getRandomNumber} from './util.js';
+
 const MESSAGES = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',];
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
+const NAMES = ['Ann', 'Greg', 'Linda', 'Omar', 'Ira', 'Kostya', 'Theo', 'Marko'];
 
-const NAMES = ['Игорь', 'Степан', 'Иосиф', 'Петрушка322', 'Опасный228', 'Леха', 'Светлана Викторовна', 'Неопознанный Енот', 'Стиральная машинка BOSH',];
-
-const DESCRIPTIONS = ['Отдыхаю', 'Загораю', 'Программирую', 'Занят', 'Крутое фото', 'Завидуйте', 'Я на море', 'Было весело'];
-
-const objectList = [];
-
-function getRandomPositiveInt(min, max) {
-  let lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  let upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  let result = Math.random() * (upper - lower + 1) + lower;
-
-  return Math.floor(result);
-}
-
-function createRandomIdFromRangeGenerator(min, max) {
-  let previousValues = [];
-
-  return function () {
-    let currentValue = getRandomPositiveInt(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + min + ' до ' + max);
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomPositiveInt(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
-
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomPositiveInt(0, elements.length - 1)];
+const getRandomLikes = () => {
+  const likes = getRandomNumber(15, 200);
+  return likes;
 };
 
-const createMessage = () => {
+const getRandomElementOfArray = (array) => {
+  const element = array[getRandomNumber(1, array.length) - 1];
+  return element;
+};
 
-  let uniqueIdComment = createRandomIdFromRangeGenerator(1, 1000);
-
-  return {
-    id: uniqueIdComment(),
-    avatar: 'img/avatar-' + getRandomPositiveInt(1, 6) + '.svg',
-    message: getRandomArrayElement(MESSAGES),
-    name: getRandomArrayElement(NAMES),
-  }
-
-}
-
-const messageList = Array.from({length: 5}, createMessage);
+const getCommentsArray = (messagesArray, namesArray) => {
+  const commnetsArray = [];
+  const usedIds = [];
+  const countComments = getRandomNumber(2, 10);
 
 
-const getObjectList = () => {
-  let idNumber = 1;
-  for (let i = 0; i < 25; i++, idNumber++) {
-    const object = {
-      id: idNumber,
-      url: `photos/${idNumber}.jpg`,
-      description: getRandomArrayElement(DESCRIPTIONS),
-      likes: getRandomPositiveInt(15, 200),
-      comments: getRandomArrayElement(messageList),
+  for(let i = 0; i < countComments; i++) {
+    const comment = {
+      id: getRandomNumber(1, 200),
+      avatar: `img/avatar-${  getRandomNumber(1, 6)  }.svg`,
+      message: getRandomElementOfArray(messagesArray),
+      name: getRandomElementOfArray(namesArray),
     };
-    objectList[i] = object;
+    // Create random uniq id
+    for(const usedId of usedIds) {
+      if(comment.id === usedId) {
+        while(comment.id === usedId) {
+          comment.id = getRandomNumber(1, 200);
+        }
+        for(const usedId2 of usedIds) {
+          while(comment.id === usedId2) {
+            comment.id = getRandomNumber(1, 200);
+          }
+        }
+      }
+    }
+
+    usedIds[i] = comment.id;
+    commnetsArray[i] = comment;
   }
- 
-  return objectList;
+  return commnetsArray;
 };
 
-export {MESSAGES, NAMES, DESCRIPTIONS, objectList,getObjectList};
+
+const getPublicationsArray = () => {
+  const publicationArray = [];
+  let idNumber = 1;
+  for(let i = 0; i < 25; i++, idNumber++) {
+    const publication = {
+      id: idNumber,
+      url: `photos/${  idNumber  }.jpg`,
+      description: 'it\'s very beautiful photo',
+      likes: getRandomLikes(),
+      comments: getCommentsArray(MESSAGES, NAMES),
+    };
+    publicationArray[i] = publication;
+  }
+
+  return publicationArray;
+};
+
+export {getPublicationsArray};
