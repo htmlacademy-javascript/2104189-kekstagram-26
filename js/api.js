@@ -18,6 +18,7 @@ const generetePublications = () => {
     });
 };
 
+// fix for Elsint
 const sendForm = (formData) => {
   let isError = false;
   fetch(SERVER,
@@ -30,12 +31,12 @@ const sendForm = (formData) => {
       addErrorMessage();
       isError = true;
     }).then(() => {
-    if (!isError) {
-      buttonDisabled(formSubmitButtonElement, 'Публикуется...');
-      closeFormWindow();
-      addSuccesfulMessage();
-    }
-  });
+      if (!isError) {
+        buttonDisabled(formSubmitButtonElement, 'Публикуется...');
+        closeFormWindow();
+        addSuccesfulMessage();
+      }
+    });
 };
 
 export {publicationsArray, sendForm, generetePublications};
