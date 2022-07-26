@@ -13,12 +13,10 @@ const buttonCancelElement = bodyElement.querySelector('.big-picture__cancel');
 const commentBlockElement = bodyElement.querySelector('.social__comments');
 const commentTemplateElement = commentBlockElement.querySelector('.social__comment');
 
-
 const loadMoreComments = () => {
   const commentsCounterNumber = Number(commentsCounterElement.textContent);
   const shownCommentsNumber = Number(shownCommentsCounterElement.textContent);
   const allComments = commentBlockElement.querySelectorAll('.social__comment');
-
 
   if (Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION >= commentsCounterNumber) {
     shownCommentsCounterElement.textContent = commentsCounterElement.textContent;
@@ -43,7 +41,6 @@ const closePublicationWindow = () => {
   loaderMoreCommentsElement.removeEventListener('click', loadMoreComments);
 };
 
-
 function onButtonClose() {
   closePublicationWindow();
 }
@@ -66,11 +63,9 @@ const onPublicationOpen = (evt) => {
   buttonCancelElement.addEventListener('click', onButtonClose);
   window.addEventListener('keydown', onEscapeClose);
 
-
   bigPublicationElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   commentBlockElement.innerHTML = '';
-
 
   bigPublicationElement.querySelector('.big-picture__img').querySelector('img').src = picture.querySelector('.picture__img').src;
   bigPublicationElement.querySelector('.likes-count').textContent = picture.querySelector('.picture__likes').textContent;

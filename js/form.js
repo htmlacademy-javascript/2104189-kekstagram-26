@@ -97,7 +97,6 @@ const closeFormWindow = () => {
   });
 };
 
-
 function onButtonClose() {
   closeFormWindow();
 }
@@ -107,7 +106,6 @@ function onEscapeClose(evt) {
     closeFormWindow();
   }
 }
-
 
 function removeEscListenerOnHashTag() {
   window.removeEventListener('keydown', onEscapeClose);
@@ -125,7 +123,6 @@ function addEscListenerOnComment() {
   window.addEventListener('keydown', onEscapeClose);
 }
 
-
 pristine.addValidator(hashTagInputElement, validateHashTagCount, 'Максимальное количество хэш-тегов 5');
 pristine.addValidator(hashTagInputElement, validateHashTagRepeat, 'Хэш-теги не должны повторяться');
 pristine.addValidator(hashTagInputElement, validateHashTagText, 'Хэш-тег должен начинаться с # и содержать только буквы и символы');
@@ -138,7 +135,6 @@ const addFormListener = () => {
     publicationEditorElement.classList.remove('hidden');
     bodyElement.classList.add('modal-open');
 
-
     const fileReader = new FileReader();
     fileReader.onload = (evt) => {
       picturePreviewElement.src = evt.target.result;
@@ -150,12 +146,9 @@ const addFormListener = () => {
     fileReader.readAsDataURL(fileUploaderElement.files[0]);
     picturePreviewElement.style = '';
 
-
     buttonCancelElement.addEventListener('click', onButtonClose);
     window.addEventListener('keydown', onEscapeClose);
 
-
-  
     inputScaleElement.value = '100%';
     picturePreviewElement.style.transform = 'scale(100%)';
     buttonMinusScaleElement.addEventListener('click', decreasePictureScale);
