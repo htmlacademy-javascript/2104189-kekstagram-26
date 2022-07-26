@@ -6,7 +6,7 @@ const COMMENT_MAX_LENGTH = 140;
 
 const validateHashTagCount = (value) => {
   const hashTags = value.split(' ');
-  if (hashTags.length > HASHTAG_MAX_ITEMS) {
+  if(hashTags.length > HASHTAG_MAX_ITEMS) {
     return false;
   }
   return true;
@@ -19,11 +19,11 @@ const validateHashTagText = (value) => {
   if (hashTags[0] !== '') {
     let notValidCounter = 0;
     hashTags.forEach((hashTag) => {
-      if (!hashTagTerms.test(hashTag)) {
+      if(!hashTagTerms.test(hashTag)) {
         notValidCounter++;
       }
     });
-    if (notValidCounter > 0) {
+    if(notValidCounter > 0) {
       return false;
     }
   }
@@ -36,11 +36,11 @@ const validateHashTagSize = (value) => {
   if (hashTags[0] !== '') {
     let notValidCounter = 0;
     hashTags.forEach((hashTag) => {
-      if (hashTag.length > HASHTAG_MAX_LENGTH) {
+      if(hashTag.length > HASHTAG_MAX_LENGTH) {
         notValidCounter++;
       }
     });
-    if (notValidCounter > 0) {
+    if(notValidCounter > 0) {
       return false;
     }
   }
@@ -52,7 +52,7 @@ const validateHashTagRepeat = (value) => {
   hashTags.forEach((hashTag, i) => {
     hashTags[i] = hashTag.toLowerCase();
   });
-  const hahTagsSet = new Set(hashTags);
+  const hahTagsSet = new Set (hashTags);
   if (hahTagsSet.size !== hashTags.length) {
     return false;
   }

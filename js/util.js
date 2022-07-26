@@ -1,13 +1,7 @@
 const getRandomNumber = (from, to) => {
-  if (from <= 0 || to < 0) {
-    return null;
-  }
-  if (from === to) {
-    return from;
-  }
-  if (from > to) {
-    return null;
-  }
+  if(from <= 0 || to < 0) {return null;}
+  if(from === to) {return from;}
+  if(from > to) {return null;}
 
   return Math.round(Math.random() * (to - from) + from);
 };
@@ -26,12 +20,11 @@ const buttonActive = (button, message = button.textContent) => {
   button.textContent = message;
 };
 
+// delete space for Eslint
 const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
-
   return (...rest) => {
     clearTimeout(timeoutId);
-
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 };
