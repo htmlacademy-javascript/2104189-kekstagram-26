@@ -4,7 +4,6 @@ const HASHTAG_MAX_ITEMS = 5;
 const HASHTAG_MAX_LENGTH = 20;
 const COMMENT_MAX_LENGTH = 140;
 
-// Checking for max count of hashTags
 const validateHashTagCount = (value) => {
   const hashTags = value.split(' ');
   if(hashTags.length > HASHTAG_MAX_ITEMS) {
@@ -13,7 +12,6 @@ const validateHashTagCount = (value) => {
   return true;
 };
 
-// Checking for regular expression
 const validateHashTagText = (value) => {
   const hashTagTerms = /^#[A-Za-zA-Яа-яЁё0-9]{1,}$/;
   const hashTags = value.split(' ');
@@ -32,7 +30,6 @@ const validateHashTagText = (value) => {
   return true;
 };
 
-// Checking size
 const validateHashTagSize = (value) => {
   const hashTags = value.split(' ');
 
@@ -50,7 +47,6 @@ const validateHashTagSize = (value) => {
   return true;
 };
 
-// Checking for hashTags repetiton
 const validateHashTagRepeat = (value) => {
   const hashTags = value.split(' ');
   hashTags.forEach((hashTag, i) => {
@@ -64,7 +60,6 @@ const validateHashTagRepeat = (value) => {
   return true;
 };
 
-// Function for validation comments
 const validateComment = (value) => getIsStringSizeAvailable(value, COMMENT_MAX_LENGTH);
 
 export {validateHashTagCount, validateHashTagText, validateHashTagRepeat, validateComment, validateHashTagSize};

@@ -23,14 +23,13 @@ const changeInputStyleValue = (effectStyle) => {
 };
 
 const changeEffect = (evt) => {
-  // reset
+
   picturePreviewElement.classList = '';
   picturePreviewElement.style = '';
   picturePreviewElement.style.transform = `scale(${  inputScaleElement.value})`;
   const effectName = evt.target.id.split('-');
   picturePreviewElement.classList.add(`effects__preview--${  effectName[1]}`);
 
-  // range slider
   if (picturePreviewElement.classList.contains('effects__preview--none')) {
     effectSliderContainerElement.classList.add('hidden');
   } else {

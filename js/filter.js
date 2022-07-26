@@ -47,7 +47,6 @@ const showPopularPublication = () => {
 };
 
 const changeFilter = (evt) => {
-  // active button's styles
   const activeButton = evt.target;
   buttonsElements.forEach((button) => {
     button.classList.remove('img-filters__button--active');
