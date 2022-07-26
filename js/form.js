@@ -1,11 +1,5 @@
-import {isEscape, buttonActive} from './util.js';
-import {
-  validateHashTagCount,
-  validateHashTagText,
-  validateHashTagRepeat,
-  validateComment,
-  validateHashTagSize
-} from './validation-functions.js';
+import { isEscape, buttonActive } from './util.js';
+import {validateHashTagCount, validateHashTagText, validateHashTagRepeat, validateComment, validateHashTagSize} from './validation-functions.js';
 import {decreasePictureScale, increasePictureScale} from './publication-scaling.js';
 import {changeEffect} from './publication-effects.js';
 import {sendForm} from './api.js';
@@ -15,7 +9,7 @@ const formElement = bodyElement.querySelector('.img-upload__form');
 const publicationEditorElement = formElement.querySelector('.img-upload__overlay');
 const fileUploaderElement = formElement.querySelector('#upload-file');
 const picturePreviewElement = formElement.querySelector('.img-upload__preview').querySelector('img');
-const buttonCancelElement = formElement.querySelector('#upload-cancel');
+const cancelButtonElement = formElement.querySelector('#upload-cancel');
 const effectsPreviewElements = formElement.querySelectorAll('.effects__preview');
 const hashTagInputElement = formElement.querySelector('.text__hashtags');
 const commentInputElement = formElement.querySelector('.text__description');
@@ -29,7 +23,7 @@ const pristine = new Pristine(formElement, {
   errorTextTag: 'span',
   errorTextClass: 'img-upload__field-error-text'
 });
-
+// variables for scale picture
 const buttonMinusScaleElement = formElement.querySelector('.scale__control--smaller');
 const buttonPlusScaleElement = formElement.querySelector('.scale__control--bigger');
 const inputScaleElement = formElement.querySelector('.scale__control--value');
@@ -61,7 +55,7 @@ noUiSlider.create(effectSliderElement, {
 
 const onFormSubmit = (evt) => {
   evt.preventDefault();
-  if (pristine.validate()) {
+  if(pristine.validate()) {
     const formData = new FormData(evt.target);
     sendForm(formData);
   }
@@ -75,8 +69,8 @@ const closeFormWindow = () => {
   commentInputElement.removeEventListener('focusout', addEscListenerOnComment);
   hashTagInputElement.removeEventListener('focus', removeEscListenerOnHashTag);
   commentInputElement.removeEventListener('focus', removeEscListenerOnComment);
-  buttonCancelElement.removeEventListener('click', onButtonClose);
-  buttonCancelElement.removeEventListener('click', onEscapeClose);
+  cancelButtonElement.removeEventListener('click', onCancelButtonClick);
+  window.removeEventListener('click', onKeydown);
   buttonMinusScaleElement.removeEventListener('click', decreasePictureScale);
   buttonMinusScaleElement.removeEventListener('click', increasePictureScale);
   inputScaleElement.value = '100%';
@@ -97,32 +91,31 @@ const closeFormWindow = () => {
   });
 };
 
-function onButtonClose() {
+// function for close button
+function onCancelButtonClick() {
   closeFormWindow();
 }
-
-function onEscapeClose(evt) {
-  if (isEscape(evt)) {
+function onKeydown (evt) {
+  if(isEscape(evt)) {
     closeFormWindow();
   }
 }
 
-function removeEscListenerOnHashTag() {
-  window.removeEventListener('keydown', onEscapeClose);
+// Function for remove and return Event listener on ESC in modal window
+function removeEscListenerOnHashTag () {
+  window.removeEventListener('keydown', onKeydown);
+}
+function addEscListenerOnHashTag () {
+  window.addEventListener('keydown', onKeydown);
+}
+function removeEscListenerOnComment () {
+  window.removeEventListener('keydown', onKeydown);
+}
+function addEscListenerOnComment () {
+  window.addEventListener('keydown', onKeydown);
 }
 
-function addEscListenerOnHashTag() {
-  window.addEventListener('keydown', onEscapeClose);
-}
-
-function removeEscListenerOnComment() {
-  window.removeEventListener('keydown', onEscapeClose);
-}
-
-function addEscListenerOnComment() {
-  window.addEventListener('keydown', onEscapeClose);
-}
-
+// Pristine Validators
 pristine.addValidator(hashTagInputElement, validateHashTagCount, 'Максимальное количество хэш-тегов 5');
 pristine.addValidator(hashTagInputElement, validateHashTagRepeat, 'Хэш-теги не должны повторяться');
 pristine.addValidator(hashTagInputElement, validateHashTagText, 'Хэш-тег должен начинаться с # и содержать только буквы и символы');
@@ -131,10 +124,11 @@ pristine.addValidator(hashTagInputElement, validateHashTagSize, 'Максима�
 
 const addFormListener = () => {
   fileUploaderElement.addEventListener('change', () => {
-
+    // Show publication editor
     publicationEditorElement.classList.remove('hidden');
     bodyElement.classList.add('modal-open');
 
+    // Show uploaded picture
     const fileReader = new FileReader();
     fileReader.onload = (evt) => {
       picturePreviewElement.src = evt.target.result;
@@ -146,14 +140,19 @@ const addFormListener = () => {
     fileReader.readAsDataURL(fileUploaderElement.files[0]);
     picturePreviewElement.style = '';
 
-    buttonCancelElement.addEventListener('click', onButtonClose);
-    window.addEventListener('keydown', onEscapeClose);
+    // Cansel button
+    cancelButtonElement.addEventListener('click', onCancelButtonClick);
+    window.addEventListener('keydown', onKeydown);
 
+
+    /*----------------PICTURE SCALE----------------*/
+    // Event listeners on + and - buttons
     inputScaleElement.value = '100%';
     picturePreviewElement.style.transform = 'scale(100%)';
     buttonMinusScaleElement.addEventListener('click', decreasePictureScale);
     buttonPlusScaleElement.addEventListener('click', increasePictureScale);
 
+    /*----------------EFFECTS----------------*/
     picturePreviewElement.classList.add('effects__preview--none');
     effectSliderContainerElement.classList.add('hidden');
     effectSliderElement.noUiSlider.on('update', () => {
@@ -162,6 +161,9 @@ const addFormListener = () => {
 
     effectRadiosElement.addEventListener('change', changeEffect);
 
+
+    /*----------------INPUT VALIDATION----------------*/
+    // Event listeners for use esc in focus in modal window
     hashTagInputElement.addEventListener('focus', removeEscListenerOnHashTag);
     commentInputElement.addEventListener('focus', removeEscListenerOnComment);
     hashTagInputElement.addEventListener('focusout', addEscListenerOnHashTag);
@@ -171,12 +173,5 @@ const addFormListener = () => {
   });
 };
 
-export {
-  addFormListener,
-  effectSliderElement,
-  picturePreviewElement,
-  effectSliderContainerElement,
-  inputScaleElement,
-  closeFormWindow,
-  formSubmitButtonElement
-};
+
+export {addFormListener, effectSliderElement, picturePreviewElement, effectSliderContainerElement, inputScaleElement, closeFormWindow, formSubmitButtonElement, onKeydown};
