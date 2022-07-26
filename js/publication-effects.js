@@ -1,39 +1,40 @@
 import {effectSliderElement, picturePreviewElement, effectSliderContainerElement, inputScaleElement} from './form.js';
 
 const changeInputStyleValue = (effectStyle) => {
-  switch (effectStyle) {
+  switch(effectStyle) {
     case 'grayscale':
     case 'sepia':
     case 'brightness':
       effectSliderElement.noUiSlider.on('update', () => {
-        picturePreviewElement.style.filter = `${effectStyle}(${effectSliderElement.noUiSlider.get()})`;
+        picturePreviewElement.style.filter = `${effectStyle}(${  effectSliderElement.noUiSlider.get()})`;
       });
       break;
     case 'invert':
       effectSliderElement.noUiSlider.on('update', () => {
-        picturePreviewElement.style.filter = `${effectStyle}(${effectSliderElement.noUiSlider.get()}%)`;
+        picturePreviewElement.style.filter = `${effectStyle}(${  effectSliderElement.noUiSlider.get()}%)`;
       });
       break;
     case 'blur':
       effectSliderElement.noUiSlider.on('update', () => {
-        picturePreviewElement.style.filter = `${effectStyle}(${effectSliderElement.noUiSlider.get()}px)`;
+        picturePreviewElement.style.filter = `${effectStyle}(${  effectSliderElement.noUiSlider.get()}px)`;
       });
       break;
   }
 };
 
 const changeEffect = (evt) => {
+
   picturePreviewElement.classList = '';
   picturePreviewElement.style = '';
-  picturePreviewElement.style.transform = `scale(${inputScaleElement.value})`;
+  picturePreviewElement.style.transform = `scale(${  inputScaleElement.value})`;
   const effectName = evt.target.id.split('-');
-  picturePreviewElement.classList.add(`effects__preview--${effectName[1]}`);
+  picturePreviewElement.classList.add(`effects__preview--${  effectName[1]}`);
 
   if (picturePreviewElement.classList.contains('effects__preview--none')) {
     effectSliderContainerElement.classList.add('hidden');
   } else {
     effectSliderContainerElement.classList.remove('hidden');
-    switch (effectName[1]) {
+    switch(effectName[1]) {
       case 'chrome':
         effectSliderElement.noUiSlider.updateOptions({
           range: {

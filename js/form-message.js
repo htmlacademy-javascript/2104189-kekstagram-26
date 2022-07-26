@@ -1,4 +1,5 @@
 import {isEscape} from './util.js';
+import { onKeydown } from './form.js';
 
 const bodyElement = document.querySelector('body');
 const succesfulMessageTemplateElement = bodyElement.querySelector('#success').content.querySelector('.success');
@@ -15,18 +16,16 @@ const addSuccesfulMessage = () => {
     window.removeEventListener('click', deleteMessageClick);
   }
 
-  function deleteMessageButton() {
+  function deleteMessageButton () {
     deleteMessage();
   }
-
-  function deleteMessageEsc(evt) {
-    if (isEscape(evt)) {
+  function deleteMessageEsc (evt) {
+    if(isEscape(evt)) {
       deleteMessage();
     }
   }
-
-  function deleteMessageClick(evt) {
-    if (evt.target.classList.contains('success')) {
+  function deleteMessageClick (evt) {
+    if(evt.target.classList.contains('success')) {
       deleteMessage();
     }
   }
@@ -47,20 +46,19 @@ const addErrorMessage = () => {
     errorButton.removeEventListener('click', deleteMessageButton);
     window.removeEventListener('keydown', deleteMessageEsc);
     window.removeEventListener('click', deleteMessageClick);
+    window.addEventListener('keydown', onKeydown);
   }
 
-  function deleteMessageButton() {
+  function deleteMessageButton () {
     deleteMessage();
   }
-
-  function deleteMessageEsc(evt) {
-    if (isEscape(evt)) {
+  function deleteMessageEsc (evt) {
+    if(isEscape(evt)) {
       deleteMessage();
     }
   }
-
-  function deleteMessageClick(evt) {
-    if (evt.target.classList.contains('error')) {
+  function deleteMessageClick (evt) {
+    if(evt.target.classList.contains('error')) {
       deleteMessage();
     }
   }
@@ -69,6 +67,7 @@ const addErrorMessage = () => {
   errorButton.addEventListener('click', deleteMessageButton);
   window.addEventListener('keydown', deleteMessageEsc);
   window.addEventListener('click', deleteMessageClick);
+  window.removeEventListener('keydown', onKeydown);
 };
 
 export {addSuccesfulMessage, addErrorMessage};
