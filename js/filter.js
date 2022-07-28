@@ -9,7 +9,7 @@ const buttonContainerElement = filterElement.querySelector('.img-filters__form')
 const buttonsElements = buttonContainerElement.querySelectorAll('.img-filters__button');
 filterElement.classList.remove('img-filters--inactive');
 
-const showRandomPublications = (publicationCount, publications) => {
+const showRandomPublications = (publicationCount) => {
   const shuffledPublications = [];
   const notUsedIndexes = [];
   const randomUniqueIndexes = [];
