@@ -13,18 +13,15 @@ const cancelButtonElement = bodyElement.querySelector('.big-picture__cancel');
 const commentBlockElement = bodyElement.querySelector('.social__comments');
 const commentTemplateElement = commentBlockElement.querySelector('.social__comment');
 
-// loading more comments
 const loadMoreComments = () => {
   const commentsCounterNumber = Number(commentsCounterElement.textContent);
   const shownCommentsNumber = Number(shownCommentsCounterElement.textContent);
   const allCommentElements = commentBlockElement.querySelectorAll('.social__comment');
 
 
-  if(Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION >= commentsCounterNumber) {
-    shownCommentsCounterElement.textContent = commentsCounterElement.textContent;
-  } else {
-    shownCommentsCounterElement.textContent = Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION;
-  }
+  Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION >= commentsCounterNumber ?
+  shownCommentsCounterElement.textContent = commentsCounterElement.textContent :
+  shownCommentsCounterElement.textContent = `${Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION}`;
 
   for(let i = shownCommentsNumber; i < Number(shownCommentsCounterElement.textContent); i++) {
     allCommentElements[i].classList.remove('hidden');
@@ -43,7 +40,6 @@ const closePublicationWindow = () => {
   loadMoreButtonElement.removeEventListener('click', loadMoreComments);
 };
 
-// Function for close button
 function onCancelButtonClick() {
   closePublicationWindow();
 }
@@ -62,11 +58,9 @@ const onPicturesContainerClick = (evt) => {
 
   evt.preventDefault();
 
-  // Cansel button
   cancelButtonElement.addEventListener('click', onCancelButtonClick);
   window.addEventListener('keydown', onEscapeClose);
 
-  // Drawing of bigPublication
   bigPublicationElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   commentBlockElement.innerHTML = '';
@@ -75,16 +69,15 @@ const onPicturesContainerClick = (evt) => {
   bigPublicationElement.querySelector('.big-picture__img').querySelector('img').src = picture.querySelector('.picture__img').src;
   bigPublicationElement.querySelector('.likes-count').textContent = picture.querySelector('.picture__likes').textContent;
   commentsCounterElement.textContent = picture.querySelector('.picture__comments').textContent;
-  bigPublicationElement.querySelector('.social__caption').textContent = picture.querySelector('.picture__comments').textContent;
+
   if(commentsCounterElement.textContent <= COMMENTS_PORTION) {
     shownCommentsCounterElement.textContent = commentsCounterElement.textContent;
     loadMoreButtonElement.classList.add('hidden');
   } else {
-    shownCommentsCounterElement.textContent = COMMENTS_PORTION;
+    shownCommentsCounterElement.textContent = `${COMMENTS_PORTION}`;
     loadMoreButtonElement.classList.remove('hidden');
   }
 
-  // Drawing comments
   const id = picture.dataset.id;
   const commentsFragment = document.createDocumentFragment();
 

@@ -6,10 +6,8 @@ const COMMENT_MAX_LENGTH = 140;
 
 const validateHashTagCount = (value) => {
   const hashTags = value.split(' ');
-  if(hashTags.length > HASHTAG_MAX_ITEMS) {
-    return false;
-  }
-  return true;
+  return hashTags.length <= HASHTAG_MAX_ITEMS;
+
 };
 
 const validateHashTagText = (value) => {

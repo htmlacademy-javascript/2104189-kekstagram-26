@@ -1,12 +1,13 @@
-import {isEscape} from './util.js';
-import { onKeydown } from './form.js';
+import {isEscape, buttonActive} from './util.js';
+import { onKeydown, formSubmitButtonElement } from './form.js';
 
 const bodyElement = document.querySelector('body');
-const succesfulMessageTemplateElement = bodyElement.querySelector('#success').content.querySelector('.success');
+const successMessageTemplateElement = bodyElement.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplateElement = bodyElement.querySelector('#error').content.querySelector('.error');
 
 const addSuccesfulMessage = () => {
-  const messageElement = succesfulMessageTemplateElement.cloneNode(true);
+  buttonActive(formSubmitButtonElement, 'Опубликовать');
+  const messageElement = successMessageTemplateElement.cloneNode(true);
   const successButton = messageElement.querySelector('.success__button');
 
   function deleteMessage() {
@@ -37,6 +38,7 @@ const addSuccesfulMessage = () => {
 };
 
 const addErrorMessage = () => {
+  buttonActive(formSubmitButtonElement, 'Опубликовать');
   const messageElement = errorMessageTemplateElement.cloneNode(true);
   const errorButton = messageElement.querySelector('.error__button');
   messageElement.style = 'z-index: 2';
