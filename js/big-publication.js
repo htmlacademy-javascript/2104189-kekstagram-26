@@ -18,7 +18,7 @@ const loadMoreComments = () => {
   const shownCommentsNumber = Number(shownCommentsCounterElement.textContent);
   const allCommentElements = commentBlockElement.querySelectorAll('.social__comment');
 
-  Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION >= commentsCounterNumber ? shownCommentsCounterElement.textContent = commentsCounterElement.textContent : shownCommentsCounterElement.textContent = `${Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION}`;
+  shownCommentsCounterElement.textContent = Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION >= commentsCounterNumber ? commentsCounterElement.textContent : `${Number(shownCommentsCounterElement.textContent) + COMMENTS_PORTION}`;
 
   for (let i = shownCommentsNumber; i < Number(shownCommentsCounterElement.textContent); i++) {
     allCommentElements[i].classList.remove('hidden');
