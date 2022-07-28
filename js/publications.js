@@ -11,17 +11,18 @@ const generatePublicationsArray = (publications, isFirst = true) => {
       publicationElement.querySelector('.picture__img').src = url;
       publicationElement.querySelector('.picture__comments').textContent = comments.length;
       publicationElement.querySelector('.picture__likes').textContent = likes;
-      publicationElement.dataset.id = i;
+      publicationElement.dataset.id = `${i}`;
       publicationsFragment.appendChild(publicationElement);
       i++;
     });
   } else {
     const publicationElements = pictureBlockElement.querySelectorAll('.picture');
-    publications.forEach(({url, likes, comments, id}) => {
+    publications.forEach(({url, likes, comments, id, description}) => {
       const publicationElement = pictureTemplateElement.cloneNode(true);
       publicationElement.querySelector('.picture__img').src = url;
       publicationElement.querySelector('.picture__comments').textContent = comments.length;
       publicationElement.querySelector('.picture__likes').textContent = likes;
+      publicationElement.querySelector('.social_caption').textContent = description;
       publicationElement.dataset.id = id;
       publicationsFragment.appendChild(publicationElement);
     });

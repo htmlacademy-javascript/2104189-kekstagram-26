@@ -1,4 +1,4 @@
-import { isEscape, buttonActive } from './util.js';
+import { isEscape, buttonDisabled} from './util.js';
 import {validateHashTagCount, validateHashTagText, validateHashTagRepeat, validateComment, validateHashTagSize} from './validation-functions.js';
 import {decreasePictureScale, increasePictureScale} from './publication-scaling.js';
 import {changeEffect} from './publication-effects.js';
@@ -23,7 +23,6 @@ const pristine = new Pristine(formElement, {
   errorTextTag: 'span',
   errorTextClass: 'img-upload__field-error-text'
 });
-// variables for scale picture
 const buttonMinusScaleElement = formElement.querySelector('.scale__control--smaller');
 const buttonPlusScaleElement = formElement.querySelector('.scale__control--bigger');
 const inputScaleElement = formElement.querySelector('.scale__control--value');
@@ -57,6 +56,7 @@ const onFormSubmit = (evt) => {
   evt.preventDefault();
   if(pristine.validate()) {
     const formData = new FormData(evt.target);
+    buttonDisabled(formSubmitButtonElement, 'Публикуется...');
     sendForm(formData);
   }
 };
@@ -83,7 +83,6 @@ const closeFormWindow = () => {
   inputContainersElements.forEach((container) => {
     container.classList.remove('img-upload__field-wrapper--error');
   });
-  buttonActive(formSubmitButtonElement, 'Опубликовать');
   formElement.removeEventListener('submit', onFormSubmit);
   const allErrorSpan = formElement.querySelectorAll('.pristine-error');
   allErrorSpan.forEach((errorSpan) => {
@@ -91,7 +90,6 @@ const closeFormWindow = () => {
   });
 };
 
-// function for close button
 function onCancelButtonClick() {
   closeFormWindow();
 }
@@ -101,7 +99,6 @@ function onKeydown (evt) {
   }
 }
 
-// Function for remove and return Event listener on ESC in modal window
 function removeEscListenerOnHashTag () {
   window.removeEventListener('keydown', onKeydown);
 }
@@ -115,7 +112,6 @@ function addEscListenerOnComment () {
   window.addEventListener('keydown', onKeydown);
 }
 
-// Pristine Validators
 pristine.addValidator(hashTagInputElement, validateHashTagCount, 'Максимальное количество хэш-тегов 5');
 pristine.addValidator(hashTagInputElement, validateHashTagRepeat, 'Хэш-теги не должны повторяться');
 pristine.addValidator(hashTagInputElement, validateHashTagText, 'Хэш-тег должен начинаться с # и содержать только буквы и символы');
@@ -124,11 +120,9 @@ pristine.addValidator(hashTagInputElement, validateHashTagSize, 'Максима�
 
 const addFormListener = () => {
   fileUploaderElement.addEventListener('change', () => {
-    // Show publication editor
     publicationEditorElement.classList.remove('hidden');
     bodyElement.classList.add('modal-open');
 
-    // Show uploaded picture
     const fileReader = new FileReader();
     fileReader.onload = (evt) => {
       picturePreviewElement.src = evt.target.result;
@@ -140,19 +134,14 @@ const addFormListener = () => {
     fileReader.readAsDataURL(fileUploaderElement.files[0]);
     picturePreviewElement.style = '';
 
-    // Cansel button
     cancelButtonElement.addEventListener('click', onCancelButtonClick);
     window.addEventListener('keydown', onKeydown);
 
-
-    /*----------------PICTURE SCALE----------------*/
-    // Event listeners on + and - buttons
     inputScaleElement.value = '100%';
     picturePreviewElement.style.transform = 'scale(100%)';
     buttonMinusScaleElement.addEventListener('click', decreasePictureScale);
     buttonPlusScaleElement.addEventListener('click', increasePictureScale);
 
-    /*----------------EFFECTS----------------*/
     picturePreviewElement.classList.add('effects__preview--none');
     effectSliderContainerElement.classList.add('hidden');
     effectSliderElement.noUiSlider.on('update', () => {
@@ -161,9 +150,6 @@ const addFormListener = () => {
 
     effectRadiosElement.addEventListener('change', changeEffect);
 
-
-    /*----------------INPUT VALIDATION----------------*/
-    // Event listeners for use esc in focus in modal window
     hashTagInputElement.addEventListener('focus', removeEscListenerOnHashTag);
     commentInputElement.addEventListener('focus', removeEscListenerOnComment);
     hashTagInputElement.addEventListener('focusout', addEscListenerOnHashTag);
