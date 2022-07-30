@@ -1,4 +1,4 @@
-import {addSuccesfulMessage, addErrorMessage} from './form-message.js';
+import {addSuccessfulMessage, addErrorMessage} from './form-message.js';
 import {closeFormWindow} from './form.js';
 import { generatePublicationsArray } from './publications.js';
 
@@ -31,7 +31,7 @@ const sendForm = (formData) => {
     }).then(() => {
       if(!isError) {
         closeFormWindow();
-        addSuccesfulMessage();
+        addSuccessfulMessage();
       }
     });
 };

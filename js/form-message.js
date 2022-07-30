@@ -5,7 +5,7 @@ const bodyElement = document.querySelector('body');
 const successMessageTemplateElement = bodyElement.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplateElement = bodyElement.querySelector('#error').content.querySelector('.error');
 
-const addSuccesfulMessage = () => {
+const addSuccessfulMessage = () => {
   buttonActive(formSubmitButtonElement, 'Опубликовать');
   const messageElement = successMessageTemplateElement.cloneNode(true);
   const successButton = messageElement.querySelector('.success__button');
@@ -72,4 +72,4 @@ const addErrorMessage = () => {
   window.removeEventListener('keydown', onKeydown);
 };
 
-export {addSuccesfulMessage, addErrorMessage};
+export {addSuccessfulMessage, addErrorMessage};
